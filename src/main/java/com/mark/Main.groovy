@@ -13,7 +13,7 @@ class Main {
     static {
         def tsi = Main.class.getClassLoader().getResourceAsStream('tsi.src').text
 
-        CHINESE_LIST = tsi.split('\n')
+        CHINESE_LIST = tsi.split('\r?\n')
                 .findAll { it != '' && !it.matches('^#') }
                 .collect {
                     def sp = it.split(' ')
@@ -34,7 +34,7 @@ class Main {
 
 
     static void main(String[] args) {
-        def chewing = toChewing('八拔把爸伯伯')
+        def chewing = toChewing('八八八八八八八八')
 
         def audios = getAudios(chewing)
 
@@ -53,15 +53,15 @@ class Main {
 
                 def soundIdx
                 if (chewingSound == 'ˊ') {
-                    soundIdx = 1
-                } else if (chewingSound == 'ˇ') {
                     soundIdx = 2
-                } else if (chewingSound == 'ˋ') {
+                } else if (chewingSound == 'ˇ') {
                     soundIdx = 3
-                } else if (chewingSound == '˙') {
+                } else if (chewingSound == 'ˋ') {
                     soundIdx = 4
+                } else if (chewingSound == '˙') {
+                    soundIdx = 5
                 } else {
-                    soundIdx = 0
+                    soundIdx = 1
                 }
 
                 def fileName = AUDIO_MAP.get(chewingWord) + '-' + soundIdx + '.wav'
